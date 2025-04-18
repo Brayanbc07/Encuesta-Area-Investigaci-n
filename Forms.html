@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta</title>
+</head>
+<body>
+    <h1>Encuesta de Taller de Investigación</h1>
+    <form method="POST" action="https://script.google.com/macros/s/AKfycbxijGZusiRX3b5K8dY9C9wwF3lcC8r_SlWqZtKHqVyrCzHNsJ1BwZg5ZFQXcuEMAa5aGg/exec">
+        
+        <!-- Nombre completo -->
+        <label for="nombre">Nombre Completo:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <!-- Correo -->
+        <label for="correo">Correo Electrónico:</label>
+        <input type="text" id="correo" name="correo" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"><br><br>
+
+        <!-- Celular -->
+        <label for="celular">Número de celular:</label>
+        <input type="text" id="celular" name="celular" required pattern="^\d{6,12}$"><br><br>
+
+        <!-- Fecha de cumpleaños -->
+        <label for="cumpleanos">Fecha de Cumpleaños:</label>
+        <input type="date" id="cumpleanos" name="cumpleanos" required><br><br>
+
+        <!-- Selección de grupo -->
+        <label for="grupo">¿Aspirante, Egresado, Miembro Activo, Miembro Honorario, Ponente?</label><br>
+        <input type="radio" id="Aspirante" name="grupo" value="Aspirante" onclick="mostrarCampos('Aspirante')" required>
+        <label for="Aspirante">Aspirante</label><br>
+        <input type="radio" id="Egresado" name="grupo" value="Egresado" onclick="mostrarCampos('Egresado')">
+        <label for="Egresado">Egresado</label><br>
+        <input type="radio" id="MiembroActivo" name="grupo" value="Miembro Activo" onclick="mostrarCampos('Miembro Activo')" required>
+        <label for="Miembro Activo">Miembro Activo</label><br>
+        <input type="radio" id="MiembroHonorario" name="grupo" value="Miembro Honorario" onclick="mostrarCampos('Miembro Honorario')">
+        <label for="Miembro Honorario">Miembro Honorario</label><br>
+        <input type="radio" id="Ponente" name="grupo" value="Ponente" onclick="mostrarCampos('Ponente')">
+        <label for="Ponente">Ponente</label><br><br>
+
+        <!-- Área de Investigación -->
+        <label for="areaInvestigacion">Área de Investigación (Selecciona una):</label><br>
+        <select id="areaInvestigacion" name="areaInvestigacion" required>
+            <option value="Geodesarrolladores">Geodesarrolladores</option>
+            <option value="Lectura de Paper">Lectura de Paper</option>
+            <option value="Investigación">Investigación</option>
+            <option value="Tutor de talleres">Este ciclo deseo ser tutor en algun taller</option>
+            <option value="Este ciclo no puedo participar">Este ciclo no puedo participar</option>
+        </select><br><br>
+
+        <!-- Pregunta adicional para Aspirantes -->
+        <div id="campoAspirante" style="display:none;">
+            <label for="temaAprender">Tema que deseas aprender (solo Aspirantes y Miembro Activo):</label>
+            <input type="text" id="temaAprender" name="temaAprender"><br><br>
+
+            <!--Código del aspirante y ciclo relativo-->
+            <label for="codigo">Cuál es su código (solo participantes):</label>
+            <input type="text" id="codigo" name="codigo"><br><br>
+
+            <label for="ciclo">Cuál es su ciclo (solo participantes):</label>
+            <select id="ciclo" name="ciclo" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select><br><br>
+        </div>
+
+        <!-- Pregunta adicional para Egresados -->
+        <div id="campoEgresado" style="display:none;">
+            <label for="temaDominar">Tema que dominas y podrías asesorar (solo egresados):</label>
+            <input type="text" id="temaDominar" name="temaDominar"><br><br>
+
+            <!-- Pregunta para Egresados sobre ser tutor -->
+            <label for="serTutorEgresado">¿Deseas ser tutor durante este ciclo?</label><br>
+            <input type="radio" id="siEgresado" name="serTutorEgresado" value="Sí" onclick="mostrarCamposTutor('Egresado')">
+            <label for="siEgresado">Sí</label><br>
+            <input type="radio" id="noEgresado" name="serTutorEgresado" value="No" onclick="ocultarCamposTutor('Egresado')">
+            <label for="noEgresado">No</label><br><br>
+
+            <!-- Campos adicionales para los que deseen ser tutores -->
+            <div id="campoTutorEgresado" style="display:none;">
+                <label for="tallerEgresado">¿En qué taller deseas ser tutor?</label><br>
+                <input type="text" id="tallerEgresado" name="tallerEgresado"><br><br>
+
+                <label for="temaEgresado">¿Qué tema relacionado con la geotecnia te gustaría enseñar?</label><br>
+                <input type="text" id="temaEgresado" name="temaEgresado"><br><br>
+            </div>
+        </div>
+
+        <!-- Pregunta adicional para Miembros Honorarios -->
+        <div id="campoMiembroHonorario" style="display:none;">
+            <label for="serTutorHonorario">¿Deseas ser tutor durante este ciclo?</label><br>
+            <input type="radio" id="siHonorario" name="serTutorHonorario" value="Sí" onclick="mostrarCamposTutor('Honorario')">
+            <label for="siHonorario">Sí</label><br>
+            <input type="radio" id="noHonorario" name="serTutorHonorario" value="No" onclick="ocultarCamposTutor('Honorario')">
+            <label for="noHonorario">No</label><br><br>
+
+            <!-- Campos adicionales para los que deseen ser tutores -->
+            <div id="campoTutorHonorario" style="display:none;">
+                <label for="tallerHonorario">¿En qué taller deseas ser tutor?</label><br>
+                <input type="text" id="tallerHonorario" name="tallerHonorario"><br><br>
+
+                <label for="temaHonorario">¿Qué tema relacionado con la geotecnia te gustaría enseñar?</label><br>
+                <input type="text" id="temaHonorario" name="temaHonorario"><br><br>
+            </div>
+        </div>
+
+        <!-- Pregunta adicional para Ponentes -->
+        <div id="campoPonente" style="display:none;">
+            <label for="temasPonente">¿Cuáles son los temas de especialidad en los que puedes disertar tu ponencia?</label><br>
+            <input type="text" id="temasPonente" name="temasPonente"><br><br>
+        </div>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+    <script>
+        // Función para mostrar campos específicos según el grupo seleccionado
+        function mostrarCampos(grupo) {
+            // Ocultar todos los campos primero
+            document.getElementById('campoAspirante').style.display = 'none';
+            document.getElementById('campoEgresado').style.display = 'none';
+            document.getElementById('campoMiembroHonorario').style.display = 'none';
+            document.getElementById('campoPonente').style.display = 'none';
+
+            // Mostrar el campo correspondiente al grupo
+            if (grupo === 'Aspirante' || grupo === 'Miembro Activo') {
+                document.getElementById('campoAspirante').style.display = 'block';
+            } else if (grupo === 'Egresado') {
+                document.getElementById('campoEgresado').style.display = 'block';
+            } else if (grupo === 'Miembro Honorario') {
+                document.getElementById('campoMiembroHonorario').style.display = 'block';
+            } else if (grupo === 'Ponente') {
+                document.getElementById('campoPonente').style.display = 'block';
+            }
+        }
+
+        // Función para mostrar campos adicionales para los que desean ser tutores
+        function mostrarCamposTutor(tipo) {
+            document.getElementById('campoTutor' + tipo).style.display = 'block';
+        }
+
+        // Función para ocultar campos adicionales para los que no desean ser tutores
+        function ocultarCamposTutor(tipo) {
+            document.getElementById('campoTutor' + tipo).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
